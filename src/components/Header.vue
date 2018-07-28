@@ -1,11 +1,13 @@
 <template>
-  <div class="hello">
-  </div>
+  <header>
+    <router-link to="/" exact>首页</router-link>
+    <router-link to="/add" exact>投稿</router-link>
+  </header>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'app-header',
   data () {
     return {
      

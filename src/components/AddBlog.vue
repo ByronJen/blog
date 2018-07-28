@@ -1,5 +1,5 @@
 <template>
-  <div class="add-blog">
+  <div class="add-blog" v-theme="'wide'">
     <form v-show="!submited">
       <h2>写博客</h2>
       <div>
@@ -61,11 +61,7 @@ export default {
   },
   methods:{
     post(){
-      this.$http.post("http://jsonplaceholder.typicode.com/posts",{
-        title:this.blog.title,
-        body:this.blog.content,
-        userId:1
-      }).then((data)=>{
+      this.$http.post("https://rxy-blog.firebaseio.com/posts.json",this.blog).then((data)=>{
         console.log(data)
         this.submited = !this.submited;
       })
@@ -77,18 +73,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  *{
-    padding:0;
-    margin:0;
-    box-sizing:border-box;
-  }
-  .add-blog,#preview{
-    max-width:780px;
+  #preview,.add-blog{
     padding:25px;
     margin:0 auto;
   }
   form > div{
     padding:5px 0;
+    margin-top:20px;
+  }
+  form > div > label{
+    margin-bottom:5px;
   }
   input[type='text'],textarea,select,button{
     border:1px solid #ddd;
@@ -103,7 +97,7 @@ export default {
     padding:5px;
   }
   input[type='checkbox']{
-    margin:0 8px 0 3px;
+    margin:0 3px;
   }
   select{
     padding:7px 5px;
