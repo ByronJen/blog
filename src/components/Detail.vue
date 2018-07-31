@@ -1,14 +1,22 @@
 <template>
-<div class="blog-detail">
-    <h2>{{blog.title}}</h2>
-    <p>作者：{{blog.author}}</p>
-    <p>分类：
-        <span v-for="(category,index) in blog.categories" :key="index">
-            {{category}} 
-        </span>
-    </p>
-    <article>{{blog.content}}</article>
-</div>
+    <div class="blog-detail">
+        <h2>{{blog.title}}</h2>
+        <p>
+            <span v-show="!!blog.author" >作者：</span>
+            {{blog.author}}
+        </p>
+        <p>
+            <span v-show="!!blog.categories" >分类：</span>
+            <span v-for="(category,index) in blog.categories" :key="index">
+                {{category}} 
+            </span>
+        </p>
+        <article>{{blog.content}}</article>
+        <div>
+        <router-link tag='button' :to="'/edit/'+id">编辑</router-link>
+        <button @click="deleteThisBlog()">删除</button>
+        </div>
+    </div>
 </template>
 <script>
     export default{
@@ -19,10 +27,21 @@
                 blog:{}
             }
         },
+        methods:{
+            deleteThisBlog(){
+                this.$axios.delete('/posts/'+this.id+'.json')
+                .then((response)=>{
+                    if(response.status==200){
+                        this.$router.push({path:"/"})
+                    }
+                })
+            }
+        },
         created(){
-            this.$http.get('https://rxy-blog.firebaseio.com/posts/'+this.id+'.json')
+            this.$axios.get('/posts/'+this.id+'.json')
             .then((result)=>{
-                this.blog = result.body;
+                // console.log(result)
+                this.blog = result.data;
             })
         }
     }

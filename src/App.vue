@@ -37,7 +37,4 @@ header a{
   border-radius:5px;
   display: inline-block;
 }
-.router-link-active{
-  background:#ff9801;
-}
 </style>

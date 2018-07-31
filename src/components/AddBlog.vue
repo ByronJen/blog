@@ -40,6 +40,7 @@
       <li v-for="category in blog.categories">{{category}}</li>
       </ul>
       <p>作者：{{blog.author}}</p>
+      <router-link tag='button' to="/">返回首页</router-link>
     </div>
   </div>
 </template>
@@ -61,8 +62,9 @@ export default {
   },
   methods:{
     post(){
-      this.$http.post("https://rxy-blog.firebaseio.com/posts.json",this.blog).then((data)=>{
-        console.log(data)
+      this.$axios.post("/posts.json",this.blog)      
+      .then((data)=>{
+        // console.log(data)
         this.submited = !this.submited;
       })
       // console.log(JSON.stringify(this.blog));

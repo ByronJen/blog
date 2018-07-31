@@ -19,4 +19,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.router-link-active{
+  background:#ff9801;
+}
 </style>

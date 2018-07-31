@@ -37,20 +37,14 @@ export default {
     }
   },
   created(){
-    this.$http.get('https://rxy-blog.firebaseio.com/posts.json')
+    this.$axios.get('/posts.json')
     .then((response)=>{
-      return response.json();
-    })
-    .then((data)=>{
-      // data.forEach((item,i)={
-      //   this.items[i] = item;
-      // })
       const blogArray = [];
-      for(let key in data){
-        data[key].id = key;
-        this.items.push(data[key]);
+      for(let key in response.data){
+        response.data[key].id = key;
+        this.items.push(response.data[key]);
       }
-      console.log(this.items);
+      // console.log(this.items);
     })
   },
   computed:{
